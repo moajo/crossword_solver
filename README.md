@@ -1,5 +1,13 @@
 # usage
 
+Set your own key:
+
+```bash
+export OPENAI_API_KEY="sk-xxxxxx"
+```
+
+Enjoy!
+
 ```bash
 ❯ cat sample_problem2.json|rye run python src/crossword_solver/crossword.py
  1|  | 2|■■| 3| 4|
