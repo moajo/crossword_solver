@@ -1,4 +1,5 @@
 import json
+import sys
 from crossword_solver.types import (
     Cell,
     CellConstraint,
@@ -96,14 +97,19 @@ def _find_position(
 
 
 if __name__ == "__main__":
-    with open("sample_problem2.json") as f:
-        definition = CrosswordDefinition(**json.load(f))
+    try:
+        input = json.loads(sys.stdin.read())
+        definition = CrosswordDefinition(**input)
+    except json.JSONDecodeError:
+        print("stdin is not json")
 
     problem = parse_crossword_definition(definition)
-    for i in range(4):
-        print(f"################イテレーション:{i+1}")
+    print(problem)
+    print("processing...\n")
+    for i in range(10):
+        # print(f"################イテレーション:{i+1}")
         problem.clear_memo()
-        print(problem.state())
+        # print(problem.state())
         # print("完了済みライン")
         # for l in problem.lines:
         #     if l.is_finalized(problem.cells):
@@ -119,13 +125,13 @@ if __name__ == "__main__":
             line.fill_cells(problem.cells, p)
         # print(problem.state())
         problem.fill_answer()
-        print(problem.state())
+        # print(problem.state())
         if problem.is_finished():
             print("completed")
             print(problem.state())
             break
-        print("-----未完了ライン")
-        for l in problem.lines:
-            if l.is_finalized(problem.cells):
-                continue
-            print(l.get_hint(problem.cells))
+        # print("-----未完了ライン")
+        # for l in problem.lines:
+        #     if l.is_finalized(problem.cells):
+        #         continue
+        #     print(l.get_hint(problem.cells))

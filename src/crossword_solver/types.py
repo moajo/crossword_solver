@@ -128,19 +128,19 @@ class Line:
         self.predicted_word = answer
 
         if match_count >= 2:
-            print("予測が確定マスと2点以上一致しているので確定させます")
+            # print("予測が確定マスと2点以上一致しているので確定させます")
             self.finalize(cells)
             return
 
         # この時点では確定しないので、仮予測を入れる
-        print(f"仮回答:{answer} {self.get_hint(cells)}")
+        # print(f"仮回答:{answer} {self.get_hint(cells)}")
         for i, (y, x) in enumerate(self.iterate_cell_index()):
             cells[y][x].current_predictions.append(answer[i])
 
     def finalize(self, cells: list[list[Cell]]):
         if self.is_finalized(cells):
             return
-        print(":", self.id, self.length, self.predicted_word)
+        # print(":", self.id, self.length, self.predicted_word)
         for i, (y, x) in enumerate(self.iterate_cell_index()):
             cells[y][x].answer = self.predicted_word[i]
 
